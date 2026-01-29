@@ -1,7 +1,7 @@
 export const normalizeText = (value: string) =>
   value
     .toLowerCase()
-    .replace(/['’]/g, "")
+    .replace(/['’\.]/g, "")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 
