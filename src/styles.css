@@ -1,0 +1,359 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,700&display=swap");
+
+:root {
+  color-scheme: light;
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  --ink: #1f1c17;
+  --muted: #6d6257;
+  --sun: #f7b801;
+  --tomato: #f04d3c;
+  --mint: #00a78e;
+  --sky: #2d9cdb;
+  --cream: #fff5e9;
+  --paper: #fffaf4;
+  --shadow: 0 24px 48px rgba(40, 28, 16, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 15% 15%, #ffe7c7 0%, transparent 45%),
+    radial-gradient(circle at 85% 20%, #d7f5ef 0%, transparent 40%),
+    linear-gradient(180deg, #fef7ec 0%, #f7e2c2 100%);
+  color: var(--ink);
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 24px 64px;
+  position: relative;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+header h1 {
+  font-family: "Fraunces", serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.progress {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.progress__chip {
+  background: var(--paper);
+  border: 1px solid rgba(31, 28, 23, 0.12);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(30, 20, 10, 0.08);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.cover-card,
+.form-card {
+  background: var(--paper);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-card::before {
+  content: "";
+  position: absolute;
+  inset: -40% 40% auto -30%;
+  height: 200px;
+  background: radial-gradient(circle at 30% 30%, rgba(240, 77, 60, 0.5), transparent 70%);
+  pointer-events: none;
+}
+
+.cover-card img {
+  width: 100%;
+  border-radius: 18px;
+  border: 4px solid rgba(31, 28, 23, 0.1);
+  box-shadow: 0 16px 32px rgba(20, 14, 8, 0.2);
+}
+
+.cover-card .album-meta {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.album-meta__title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.album-meta__year {
+  background: var(--mint);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.album-tracks {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(31, 28, 23, 0.06);
+}
+
+.album-tracks__label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.album-tracks__list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  font-size: 0.95rem;
+}
+
+.form-card h2 {
+  margin: 0 0 16px;
+  font-size: 1.5rem;
+}
+
+.results-card {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.results-card__score {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.results-card__status {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.results-card .actions {
+  justify-content: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.field label {
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 2px solid rgba(31, 28, 23, 0.12);
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--sky);
+  box-shadow: 0 0 0 4px rgba(45, 156, 219, 0.15);
+}
+
+.field--correct input,
+.field--correct textarea {
+  border-color: var(--mint);
+  box-shadow: 0 0 0 4px rgba(0, 167, 142, 0.2);
+}
+
+.field--partial input,
+.field--partial textarea {
+  border-color: var(--sun);
+  box-shadow: 0 0 0 4px rgba(247, 184, 1, 0.2);
+}
+
+.field--wrong input,
+.field--wrong textarea {
+  border-color: var(--tomato);
+  box-shadow: 0 0 0 4px rgba(240, 77, 60, 0.15);
+}
+
+.field__hint {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.field__result {
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.field__result.ok {
+  color: var(--mint);
+}
+
+.field__result.partial {
+  color: #a06a00;
+}
+
+.field__result.miss {
+  color: var(--tomato);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+button {
+  font-family: inherit;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 10px 18px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.button-primary {
+  background: var(--tomato);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(240, 77, 60, 0.35);
+}
+
+.button-secondary {
+  background: var(--ink);
+  color: #fff;
+}
+
+.button-ghost {
+  background: rgba(31, 28, 23, 0.08);
+  color: var(--ink);
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.nav__buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.score {
+  background: rgba(31, 28, 23, 0.08);
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+.footer-note {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.confetti__piece {
+  position: absolute;
+  top: -10vh;
+  border-radius: 6px;
+  animation-name: confetti-fall;
+  animation-timing-function: ease-in;
+  transform: translateX(var(--drift)) rotate(var(--spin));
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateX(var(--drift)) translateY(0) rotate(var(--spin));
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--drift)) translateY(120vh) rotate(calc(var(--spin) + 360deg));
+    opacity: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  header {
+    margin-bottom: 20px;
+  }
+
+  .cover-card,
+  .form-card {
+    padding: 18px;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
