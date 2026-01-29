@@ -1,4 +1,5 @@
 import type { Album } from "../types";
+import rumoursCover from "../assets/images/rumours-1977.jpg";
 
 export const albums: Album[] = [
   {
@@ -14,7 +15,7 @@ export const albums: Album[] = [
       "You Make Loving Fun",
     ],
     coverUrl:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/f/fb/FMacRumours.PNG/250px-FMacRumours.PNG",
+      rumoursCover,
   },
   {
     id: "the-wall-1979",
@@ -210,5 +211,80 @@ export const albums: Album[] = [
     ],
     coverUrl:
       "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/The_Joshua_Tree.png/250px-The_Joshua_Tree.png",
+  },
+  {
+    id: "hounds-of-love-1985",
+    title: "Hounds of Love",
+    artist: "Kate Bush",
+    year: 1985,
+    tracks: [
+      "Running Up That Hill (A Deal with God)",
+      "Hounds of Love",
+      "The Big Sky",
+      "Cloudbusting",
+      "And Dream of Sheep",
+    ],
+    coverUrl:
+      "https://upload.wikimedia.org/wikipedia/en/thumb/3/31/Katebushhoundsoflove.png/250px-Katebushhoundsoflove.png",
+  },
+  {
+    id: "graceland-1986",
+    title: "Graceland",
+    artist: "Paul Simon",
+    year: 1986,
+    tracks: [
+      "The Boy in the Bubble",
+      "Graceland",
+      "You Can Call Me Al",
+      "Diamonds on the Soles of Her Shoes",
+      "Under African Skies",
+    ],
+    coverUrl:
+      "https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Graceland_album.jpg/250px-Graceland_album.jpg",
+  },
+  {
+    id: "the-queen-is-dead-1986",
+    title: "The Queen Is Dead",
+    artist: "The Smiths",
+    year: 1986,
+    tracks: [
+      "There Is a Light That Never Goes Out",
+      "The Queen Is Dead",
+      "Bigmouth Strikes Again",
+      "Cemetry Gates",
+      "I Know It's Over",
+    ],
+    coverUrl:
+      "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/The_Smiths_The_Queen_Is_Dead.png/250px-The_Smiths_The_Queen_Is_Dead.png",
+  },
+  {
+    id: "1984-1984",
+    title: "1984",
+    artist: "Van Halen",
+    year: 1984,
+    tracks: [
+      "Jump",
+      "Panama",
+      "Hot for Teacher",
+      "I'll Wait",
+      "Drop Dead Legs",
+    ],
+    coverUrl:
+      "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Van_Halen_-_1984.jpg/250px-Van_Halen_-_1984.jpg",
+  },
+  {
+    id: "appetite-for-destruction-1987",
+    title: "Appetite for Destruction",
+    artist: "Guns N' Roses",
+    year: 1987,
+    tracks: [
+      "Welcome to the Jungle",
+      "Sweet Child o' Mine",
+      "Paradise City",
+      "Nightrain",
+      "It's So Easy",
+    ],
+    coverUrl:
+      "https://upload.wikimedia.org/wikipedia/en/thumb/6/60/GunsnRosesAppetiteforDestructionalbumcover.jpg/250px-GunsnRosesAppetiteforDestructionalbumcover.jpg",
   },
 ];

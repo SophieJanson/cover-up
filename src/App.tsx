@@ -13,7 +13,17 @@ const EMPTY_GUESS: Guess = {
   checked: false,
 };
 
+const QUIZ_ALBUM_COUNT = 7;
 const totalAttributes = 4;
+
+const pickRandomAlbums = (source: Album[], count: number) => {
+  const copy = [...source];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy.slice(0, Math.min(count, copy.length));
+};
 
 const isYearMatch = (input: string, year: number) => {
   const trimmed = input.trim();
@@ -84,6 +94,9 @@ const isPerfectResult = (result: GuessResult) =>
   result.songMatches > 0;
 
 export default function App() {
+  const [quizAlbums, setQuizAlbums] = useState(() =>
+    pickRandomAlbums(albums, QUIZ_ALBUM_COUNT)
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [confettiSeed, setConfettiSeed] = useState(1);
   const [confettiActive, setConfettiActive] = useState(false);
@@ -93,8 +106,8 @@ export default function App() {
     {}
   );
 
-  const isResults = currentIndex === albums.length;
-  const album = albums[Math.min(currentIndex, albums.length - 1)];
+  const isResults = currentIndex === quizAlbums.length;
+  const album = quizAlbums[Math.min(currentIndex, quizAlbums.length - 1)];
   const guess = guesses[album.id] ?? EMPTY_GUESS;
   const result = useMemo(() => evaluateGuess(album, guess), [album, guess]);
 
@@ -146,23 +159,27 @@ export default function App() {
     setGuesses({});
     setRevealed({});
     setCurrentIndex(0);
+    setQuizAlbums(pickRandomAlbums(albums, QUIZ_ALBUM_COUNT));
     setConfettiActive(false);
   };
 
   const handlePrevious = () => {
-    setCurrentIndex((index) => (index === 0 ? albums.length - 1 : index - 1));
+    setCurrentIndex((index) =>
+      index === 0 ? quizAlbums.length - 1 : index - 1
+    );
   };
 
   const handleNext = () => {
     setCurrentIndex((index) =>
-      index === albums.length - 1 ? albums.length : index + 1
+      index === quizAlbums.length - 1 ? quizAlbums.length : index + 1
     );
   };
 
-  const checkedCount = albums.filter((item) => guesses[item.id]?.checked).length;
+  const checkedCount = quizAlbums.filter((item) => guesses[item.id]?.checked)
+    .length;
   const correctAlbumCount = useMemo(
     () =>
-      albums.reduce((count, item) => {
+      quizAlbums.reduce((count, item) => {
         const storedGuess = guesses[item.id];
         if (!storedGuess?.checked) {
           return count;
@@ -170,9 +187,9 @@ export default function App() {
         const albumResult = evaluateGuess(item, storedGuess);
         return count + Number(isPerfectResult(albumResult));
       }, 0),
-    [guesses]
+    [guesses, quizAlbums]
   );
-  const allCorrect = correctAlbumCount === albums.length;
+  const allCorrect = correctAlbumCount === quizAlbums.length;
   const isRevealed = revealed[album.id] ?? false;
   const scoreLabel = guess.checked
     ? `${result.correctCount}/${totalAttributes} attributes`
@@ -194,7 +211,9 @@ export default function App() {
           prep your team for the quiz night.
         </p>
         <div className="progress">
-          <span className="progress__chip">Checked: {checkedCount}/{albums.length}</span>
+          <span className="progress__chip">
+            Checked: {checkedCount}/{quizAlbums.length}
+          </span>
           <button className="button-ghost" onClick={handleResetAll}>
             Reset everything
           </button>
@@ -206,7 +225,7 @@ export default function App() {
           <div className="form-card results-card">
             <h2>Results</h2>
             <p className="results-card__score">
-              You got {correctAlbumCount}/{albums.length} questions correct.
+              You got {correctAlbumCount}/{quizAlbums.length} questions correct.
             </p>
             <div className="results-card__status">
               {allCorrect
@@ -216,7 +235,7 @@ export default function App() {
             <div className="actions">
               <button
                 className="button-secondary"
-                onClick={() => setCurrentIndex(albums.length - 1)}
+                onClick={() => setCurrentIndex(quizAlbums.length - 1)}
               >
                 Back to last album
               </button>
@@ -233,7 +252,7 @@ export default function App() {
             <div className="album-meta">
               <div>
                 <div className="album-meta__title">
-                  Album {currentIndex + 1} of {albums.length}
+                  Album {currentIndex + 1} of {quizAlbums.length}
                 </div>
                 <div className="field__hint">
                   {isRevealed
